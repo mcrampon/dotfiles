@@ -1,0 +1,22 @@
+{
+  "installed_packages":
+  [
+    "A File Icon",
+    "Agila Theme",
+    "Babel",
+    "Case Conversion",
+    "CSScomb",
+    "ESLint",
+    "Fold Comments",
+    "Git blame",
+    "Package Control",
+    "Pretty JSON",
+    "Pretty Ruby",
+    "RSpec",
+    "RuboCop",
+    "Ruby Slim",
+    "Sass",
+    "SublimeLinter",
+    "TabNine"
+  ]
+}

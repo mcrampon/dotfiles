@@ -1,0 +1,15 @@
+alias c="bundle exec rails c"
+alias rlb="git log -1 && git reset HEAD~"
+alias zs="subl ~/.zshrc"
+alias src="source ~/.zshrc"
+alias rake="bundle exec rake"
+alias gulp="./node_modules/.bin/gulp"
+alias rspec="bundle exec rspec"
+alias rails="bundle exec rails"
+alias rubocop="bundle exec rubocop"
+alias sq="bundle exec sidekiq -C ~/sidekiq_local.yml"
+alias psg="ps aux | grep"
+
+if [[ -r ~/.aliases.local ]]; then
+  source ~/.aliases.local
+fi

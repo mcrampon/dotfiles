@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Install brew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# Install packages with Brewfile
+brew update
+brew bundle
+
+# Use zsh as default shell
+chsh -s /bin/zsh
+
+# Setup zsh
+zsh ~/dotfiles/zsh/install.sh
+
+# Install custom prompt
+zsh ~/dotfiles/prompt/install.sh
+
+# Install sublime settings
+zsh ~/dotfiles/Sublime/install.sh
+
+# Misc
+cp ~/dotfiles/misc/.* ~/

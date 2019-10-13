@@ -1,0 +1,12 @@
+brew "zsh"
+brew "git"
+brew "rbenv"
+brew "coreutils"
+
+tap "homebrew/cask"
+cask "iterm2"
+cask "Spectacle"
+cask "Spotify"
+cask "sublime-text"
+cask "google-chrome"
+cask "altair-graphql-client"

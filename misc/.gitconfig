@@ -1,0 +1,7 @@
+[user]
+  name = Matthieu
+  email = matthieu.crampon@gmail.com
+[alias]
+    st = status
+    co = checkout
+    br = branch

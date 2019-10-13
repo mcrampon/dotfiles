@@ -1,0 +1,130 @@
+#
+# The prompt I use :)
+#
+# Authors:
+#   David Rice <me@davidjrice.co.uk>
+#   Matthieu Crampon <matthieu.crampon@gmail.com>
+
+ZSH_THEME_REP_TIME_SINCE_COMMIT_SHORT="%{$fg[green]%}"
+ZSH_THEME_REP_TIME_SINCE_COMMIT_MEDIUM="%{$fg[yellow]%}"
+ZSH_THEME_REP_TIME_SINCE_COMMIT_LONG="%{$fg[red]%}"
+ZSH_THEME_REP_TIME_SINCE_COMMIT_NEUTRAL="%{$fg[cyan]%}"
+
+rvm_info_for_prompt() {
+  if [[ -d ~/.rvm/ ]]; then
+    local ruby_version=$(~/.rvm/bin/rvm-prompt)
+    if [ -n "$ruby_version" ]; then
+      echo "$ruby_version"
+    fi
+  else
+    echo ""
+  fi
+}
+
+prompt_powerline_precmd() {
+  # Check for untracked files or updated submodules since vcs_info doesn't.
+  if [[ ! -z $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
+    fmt_branch="%b%u%c${__PROMPT_SKWP_COLORS[4]} NEW%f"
+  else
+    fmt_branch="%b%u%c"
+  fi
+  zstyle ':vcs_info:*:prompt:*' formats "${fmt_branch}"
+
+  vcs_info 'prompt'
+  RVM_PRECMD_INFO=$(rvm_info_for_prompt)
+
+  # zstyle ':prezto:module:ruby' rvm '%r'
+}
+
+prompt_powerline_setup() {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent subst)
+
+  autoload -Uz add-zsh-hook
+  autoload -Uz vcs_info
+
+  add-zsh-hook precmd prompt_powerline_precmd
+
+  # Use extended color pallete if available.
+  if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
+    __PROMPT_SKWP_COLORS=(
+      "%F{0}"  # turquoise
+      "%F{0}" # orange
+      "%F{0}" # purple
+      "%F{0}" # hotpink
+      "%F{0}" # limegreen
+    )
+  else
+    __PROMPT_SKWP_COLORS=(
+      "%F{cyan}"
+      "%F{yellow}"
+      "%F{magenta}"
+      "%F{red}"
+      "%F{green}"
+    )
+  fi
+
+  # Enable VCS systems you use.
+  zstyle ':vcs_info:*' enable bzr git hg svn
+
+  # check-for-changes can be really slow.
+  # You should disable it if you work with large repositories.
+  zstyle ':vcs_info:*:prompt:*' check-for-changes true
+
+  # Formats:
+  # %b - branchname
+  # %u - unstagedstr (see below)
+  # %c - stagedstr (see below)
+  # %a - action (e.g. rebase-i)
+  # %R - repository path
+  # %S - path in the repository
+  # %n - user
+  # %m - machine hostname
+
+  # local fmt_branch="(${__PROMPT_SKWP_COLORS[1]}%b%f%u%c)"
+  local fmt_branch="${__PROMPT_SKWP_COLORS[2]}%b%f%u%c"
+  local fmt_action="${__PROMPT_SKWP_COLORS[5]}%a%f"
+  local fmt_unstaged="${__PROMPT_SKWP_COLORS[2]} UNS%f"
+  local fmt_staged="${__PROMPT_SKWP_COLORS[5]} STA%f"
+
+  zstyle ':vcs_info:*:prompt:*' unstagedstr   "${fmt_unstaged}"
+  zstyle ':vcs_info:*:prompt:*' stagedstr     "${fmt_staged}"
+  zstyle ':vcs_info:*:prompt:*' actionformats "${fmt_branch}${fmt_action}"
+  zstyle ':vcs_info:*:prompt:*' formats       "${fmt_branch}"
+  zstyle ':vcs_info:*:prompt:*' nvcsformats   ""
+
+  # SPLIT RVM PROMPT INFO
+  # TODO: should assign this to local variable? somehow doesn't work correctly.
+  rvm_split=("${(s/@/)$(rvm_info_for_prompt)}")
+
+  # if [ "$POWERLINE_RIGHT_B" = "" ]; then
+    # POWERLINE_RIGHT_B=%D{%H:%M:%S}
+    local powerline_right_b=$rvm_split[1]
+  # fi
+
+  # if [ "$POWERLINE_RIGHT_A" = "" ]; then
+    local powerline_right_a=$rvm_split[2]
+  # fi
+
+  # Setup powerline style colouring
+  POWERLINE_COLOR_BG_GRAY=%K{240}
+  POWERLINE_COLOR_BG_LIGHT_GRAY=%K{240}
+  POWERLINE_COLOR_BG_WHITE=%K{255}
+
+  POWERLINE_COLOR_FG_GRAY=%F{240}
+  POWERLINE_COLOR_FG_LIGHT_GRAY=%F{240}
+  POWERLINE_COLOR_FG_WHITE=%F{255}
+
+  POWERLINE_SEPARATOR=$'>'
+  POWERLINE_R_SEPARATOR=$'\uE0B2'
+
+  POWERLINE_LEFT_A="%K{240}%F{white} %~ %k%f%F{green}%K{blue}"
+  POWERLINE_LEFT_B="%k%f%F{white}%K{166} "'${vcs_info_msg_0_}'" %k%f%F{blue}%K{black}"
+  POWERLINE_BOTTOM="%k%f%F{white}%K{white}"''"%k%f%F{white}"$POWERLINE_SEPARATOR"%f "
+
+  PROMPT="$POWERLINE_LEFT_A$POWERLINE_LEFT_B
+$POWERLINE_BOTTOM"
+}
+
+prompt_powerline_setup "$@"

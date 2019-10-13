@@ -1,0 +1,98 @@
+function glc () {
+  local sha=$(git log $1 --pretty=oneline | awk '{print $1}' | head -n 1)
+  git log | grep $sha
+}
+
+function network() {
+  local url sub_path project_name project_url
+  url=$(git remote -v | grep origin | awk 'FNR == 2{print $2}')
+  sub_path=$(echo ${url##*github.com})
+  project_name=$(echo ${sub_path:1} | rev | cut -c 5- | rev)
+  project_url=$(echo "https://github.com/${project_name}/network")
+  python -mwebbrowser $(echo ${project_url})
+}
+
+function tagit(){
+  git tag -a $(date +%Y%m%d)-${$1} -m $(date +%Y%m%d)-${$1}
+  git push origin $(date +%Y%m%d)-${$1}
+}
+
+function squash() {
+  local current_branch target_branch
+  current_branch=$(git branch | grep \* | cut -d ' ' -f2)
+  if [ -z "$1" ]
+  then
+    target_branch="master"
+  else
+    target_branch="$1"
+  fi;
+  git co ${target_branch}
+  git pull
+  git co ${current_branch}
+
+  git reset $(git merge-base ${target_branch} ${current_branch})
+  git add -A
+  git commit
+}
+
+function reset_db() {
+  if (confirm); then
+    rake db:drop
+    rake db:create
+    rake db:import
+  else
+    echo "Not doing anything, you safe bro."
+  fi;
+}
+
+function confirm() {
+  read "response?Are you sure you want to reset your DB?"
+  case "$response" in
+    [yY][eE][sS]|[yY])
+      true
+      ;;
+    *)
+      false
+      ;;
+  esac
+}
+
+function mg() {
+  if [ -n "$(ps aux | grep "[s]sh -p \d+ -N -L" | grep -v grep | awk '{print $2}')" ]; then
+    echo "Currently tunneling: migration aborted"
+    return
+  fi;
+  bundle exec rake db:migrate
+}
+
+function rb() {
+  if [ -n "$(ps aux | grep "[s]sh -p \d+ -N -L" | grep -v grep | awk '{print $2}')" ]; then
+    echo "Currently tunneling: migration aborted"
+    return
+  fi;
+  bundle exec rake db:rollback
+}
+
+function mgt() {
+  if [ -n "$(ps aux | grep "[s]sh -p \d+ -N -L" | grep -v grep | awk '{print $2}')" ]; then
+    echo "Currently tunneling: migration aborted"
+    return
+  fi;
+  bundle exec rake db:migrate RAILS_ENV=test
+}
+
+function rbt() {
+  if [ -n "$(ps aux | grep "[s]sh -p \d+ -N -L" | grep -v grep | awk '{print $2}')" ]; then
+    echo "Currently tunneling: migration aborted"
+    return
+  fi;
+  bundle exec rake db:rollback RAILS_ENV=test
+}
+
+function showgem() {
+  bundle show $1 | xargs subl
+}
+
+if [[ -r ~/.functions.local ]]; then
+  source ~/.functions.local
+fi
