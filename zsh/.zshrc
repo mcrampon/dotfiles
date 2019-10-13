@@ -40,12 +40,6 @@ compinit -C
 eval "$(rbenv init -)"
 
 ###############################
-#            path             #
-###############################
-export PATH="/Users/$(whoami)/Qt5.5.0/5.5/clang_64/bin/:$PATH"
-export PATH="/usr/local/pgsql/bin:$PATH"
-
-###############################
 #       default editor        #
 ###############################
 compdef -d subl mv
