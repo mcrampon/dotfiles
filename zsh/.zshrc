@@ -9,6 +9,7 @@ fi
 #           general           #
 ###############################
 unsetopt correct
+setopt NO_NOMATCH
 export DISABLE_SPRING=1
 HISTFILE=~/.histfile
 HISTSIZE=15000
@@ -24,7 +25,7 @@ eval $(thefuck --alias --enable-experimental-instant-mode)
 ###############################
 #          compinit           #
 ###############################
-zstyle :compinstall filename "/Users/$(whoami)/.zshrc"
+zstyle :compinstall filename '/Users/mat/.zshrc'
 
 autoload -Uz compinit
 
@@ -90,7 +91,8 @@ add-zsh-hook precmd set-window-title
 ###############################
 alias hh=hstr
 export HISTFILE=~/.zsh_history
-export HSTR_CONFIG=hicolor
+export HSTR_CONFIG=hicolor,raw-history-view,prompt-bottom,blacklist
+
 bindkey -s "\C-r" "\eqhstr\n"
 
 ###############################
