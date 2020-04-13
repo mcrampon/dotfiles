@@ -1,22 +1,28 @@
 {
-  "installed_packages":
-  [
-    "A File Icon",
-    "Agila Theme",
-    "Babel",
-    "Case Conversion",
-    "CSScomb",
-    "ESLint",
-    "Fold Comments",
-    "Git blame",
-    "Package Control",
-    "Pretty JSON",
-    "Pretty Ruby",
-    "RSpec",
-    "RuboCop",
-    "Ruby Slim",
-    "Sass",
-    "SublimeLinter",
-    "TabNine"
-  ]
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"A File Icon",
+		"Agila Theme",
+		"Babel",
+		"Case Conversion",
+		"CSScomb",
+		"Cucumber",
+		"ESLint",
+		"Fold Comments",
+		"Git blame",
+		"Package Control",
+		"Pretty JSON",
+		"Pretty Ruby",
+		"RSpec",
+		"RuboCop",
+		"Ruby Slim",
+		"Sass",
+		"SublimeLinter",
+		"TabNine",
+		"Vuejs Complete Package"
+	]
 }

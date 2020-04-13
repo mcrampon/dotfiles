@@ -28,11 +28,15 @@
   [
     80
   ],
+  "scroll_past_end": true,
   "show_encoding": true,
+  "show_errors_inline": false,
+  "show_full_path": false,
   "tab_size": 2,
   "theme": "Agila Monokai.sublime-theme",
   "theme_agila_active_tab_entry_lightblue": true,
   "theme_agila_compact_tab": true,
   "translate_tabs_to_spaces": true,
-  "trim_trailing_white_space_on_save": true
+  "trim_trailing_white_space_on_save": true,
+  "ui_scale": 0.0
 }

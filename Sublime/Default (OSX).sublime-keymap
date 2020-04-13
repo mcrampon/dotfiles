@@ -7,5 +7,6 @@
   { "keys": ["alt+down"], "command": "next_view" },
   { "keys": ["alt+up"], "command": "prev_view" },
   { "keys": ["super+shift+r"], "command": "reveal_in_side_bar"},
-  { "keys": ["super+ctrl+f"], "command": "copy_path" }
+  { "keys": ["super+ctrl+f"], "command": "copy_path" },
+  { "keys": ["super+alt+r"], "command": "show_panel", "args": {"panel": "replace", "reverse": false} }
 ]
