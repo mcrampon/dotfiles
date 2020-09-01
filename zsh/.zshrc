@@ -5,6 +5,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+autoload -Uz promptinit
+promptinit
+prompt matthieu
+
 ###############################
 #           general           #
 ###############################
@@ -84,7 +88,7 @@ set-window-title() {
 
 PR_TITLEBAR=''
 set-window-title
-add-zsh-hook precmd set-window-title
+autoload -U add-zsh-hook precmd set-window-title
 
 ###############################
 #            hstr             #

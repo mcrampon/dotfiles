@@ -10,6 +10,7 @@ alias rails="bundle exec rails"
 alias rubocop="bundle exec rubocop"
 alias sq="bundle exec sidekiq -C ~/sidekiq_local.yml"
 alias psg="ps aux | grep"
+alias subl="~/bin/subl"
 
 if [[ -r ~/.aliases.local ]]; then
   source ~/.aliases.local

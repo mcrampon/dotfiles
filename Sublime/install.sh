@@ -10,3 +10,7 @@ cp ~/dotfiles/Sublime/Package\ Control.sublime-settings ~/Library/Application\ S
 
 # # Install Package Control
 curl -o ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package "https://packagecontrol.io/Package%20Control.sublime-package"
+
+# Add command line
+mkdir ~/bin
+ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
