@@ -1,5 +1,5 @@
 brew "coreutils"
-brew "git"
+brew "hstr"
 brew "rbenv"
 brew "thefuck"
 brew "zsh"
